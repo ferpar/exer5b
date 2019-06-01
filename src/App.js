@@ -1,27 +1,33 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import {hot} from 'react-hot-loader'
+import Home from './components/Home.js'
 
-import globe from '../public/images/globe.gif'
-import beer from '../public/images/beer.png'
+import {
+  BrowserRouter as Router,
+  Route,
+  NavLink as Link,
+  Switch
+} from 'react-router-dom'
+
+const Links = () => (
+  <nav>
+    <Link exact to="/">Home</Link>
+    <Link to="/beers">Beers!</Link>
+    <Link to="/random-beer">Random Beer</Link>
+    <Link to="/new-beer">New Beer</Link>
+  </nav>
+)
 
 class App extends React.Component {
-  state = {
-    count: 0
-  }
 
   render() {
-    const {count} = this.state;
     return (
-      <div>
-      <h1>Hello World!! - from the dev server</h1>
-      <h2 className={count > 10 ? 'warning' : null}>
-        Count: {count}
-      </h2>
-      <img src={beer} alt="beer"/>
-      <img src={globe} alt="globe"/>
-      <button onClick={() => this.setState(state => ({count: state.count + 1}))}>+</button>
-      <button onClick={() => this.setState(state => ({count: state.count - 1}))}>-</button>
-      </div>
+      <Fragment>
+        <Route exact path="/" component={Home} />
+        <Route path="/beers" render={() => (<h1> Beers </h1>)} />
+        <Route path="/random-beer" render={() => <h1> Random Beer </h1>} />
+        <Route path="/new-beer" render={() => <h1> New Beer </h1>} />
+      </Fragment>
     )
   }
 }
