@@ -1,6 +1,5 @@
 import React, { Fragment } from 'react'
 import {hot} from 'react-hot-loader'
-import Home from './components/Home.js'
 
 import {
   BrowserRouter as Router,
@@ -8,6 +7,9 @@ import {
   NavLink as Link,
   Switch
 } from 'react-router-dom'
+
+import Home from './components/Home.js'
+import Beers from './components/Beers.js'
 
 const Links = () => (
   <nav>
@@ -24,7 +26,7 @@ class App extends React.Component {
     return (
       <Fragment>
         <Route exact path="/" component={Home} />
-        <Route path="/beers" render={() => (<h1> Beers </h1>)} />
+        <Route path="/beers" component={Beers} />
         <Route path="/random-beer" render={() => <h1> Random Beer </h1>} />
         <Route path="/new-beer" render={() => <h1> New Beer </h1>} />
       </Fragment>
