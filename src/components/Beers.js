@@ -7,13 +7,14 @@ class Beers extends React.Component {
   state = {
     beers : [],
     onScrollEnd: false,
-    page: 1 
+    page: 2
   }
 
   componentDidMount() {
     let service = axios.create({
       baseURL: 'https://api.punkapi.com/v2/'
     })
+
     service.get(`/beers`)
       .then((result)=>{
         this.setState({beers: result.data} )})
@@ -27,8 +28,9 @@ class Beers extends React.Component {
     this.state.onScrollEnd &&
     service.get(`/beers?page=${this.state.page}`)
       .then ((result) => {
-       const newBeers = [...this.state.beers, ...result.data];
-        this.setState({beers: newBeers, onScrollEnd: false});
+        const nextPage = this.state.page + 1
+        const newBeers = [...this.state.beers, ...result.data];
+        this.setState({beers: newBeers, onScrollEnd: false, page: nextPage}, () => console.log(this.state));
       });
   }
 
@@ -38,7 +40,7 @@ class Beers extends React.Component {
 
 
     return(
-      <Fragment>
+      <div  >
         <Nav/>
         <h1>Beers!</h1>
 
@@ -58,7 +60,7 @@ class Beers extends React.Component {
         }
       <h1 onClick={() => this.setState({onScrollEnd: true})}>more Beer!</h1>
       </div>
-      </Fragment>
+      </div>
     )
   }
 
